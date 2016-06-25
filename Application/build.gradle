@@ -1,0 +1,24 @@
+group 'pl.jpelczar.pos_app'
+version '1.0'
+
+apply plugin: 'java'
+apply plugin: 'idea'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+jar {
+    manifest {
+        attributes("Implementation-Title": "Gradle",
+                "Implementation-Version": version,
+                'Main-Class': 'pl.jpelczar.pos_app.Main')
+
+    }
+}
+dependencies {
+    compile project(":Framework")
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+}

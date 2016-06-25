@@ -1,0 +1,3 @@
+rootProject.name = 'PointOfSale'
+include(":Framework", ":Application")
+
