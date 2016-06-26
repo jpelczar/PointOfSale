@@ -1,5 +1,7 @@
 package pl.jpelczar.pos_framework.database.dao;
 
+import com.sun.istack.internal.Nullable;
+
 import java.util.List;
 
 /**
@@ -11,8 +13,9 @@ public interface IDao<T, ID> {
 
     void delete(T t);
 
-    void update(T t);
+    void insertOrUpdate(T t);
 
+    @Nullable
     T get(ID id);
 
     List<T> getAll();
