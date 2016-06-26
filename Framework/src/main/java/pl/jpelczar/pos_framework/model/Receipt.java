@@ -11,7 +11,7 @@ import java.util.List;
 public class Receipt implements Serializable {
 
     private long date;
-    private List<Product> productList;
+    private List<ReceiptProduct> productList;
     private float totalPrice;
 
     public Receipt() {
@@ -19,21 +19,21 @@ public class Receipt implements Serializable {
         totalPrice = 0;
     }
 
-    public Receipt(List<Product> productList, float totalPrice) {
+    public Receipt(List<ReceiptProduct> productList, float totalPrice) {
         this.date = Calendar.getInstance().getTimeInMillis();
         this.productList = productList;
         this.totalPrice = totalPrice;
     }
 
-    public Receipt(long date, List<Product> productList, float totalPrice) {
+    public Receipt(long date, List<ReceiptProduct> productList, float totalPrice) {
         this.date = date;
         this.productList = productList;
         this.totalPrice = totalPrice;
     }
 
-    public void addProduct(Product product) {
+    public void addProduct(ReceiptProduct product) {
         productList.add(product);
-        totalPrice += product.getPrice();
+        totalPrice += product.getTotalPrice();
     }
 
     public long getDate() {
@@ -44,11 +44,11 @@ public class Receipt implements Serializable {
         this.date = date;
     }
 
-    public List<Product> getProductList() {
+    public List<ReceiptProduct> getProductList() {
         return productList;
     }
 
-    public void setProductList(List<Product> productList) {
+    public void setProductList(List<ReceiptProduct> productList) {
         this.productList = productList;
     }
 
