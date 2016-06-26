@@ -12,10 +12,11 @@ public class ReceiptProductTest {
     private ReceiptProduct product;
     private int count = 5;
     private float price = 12.3f;
+    private int id = 342134;
 
     @Before
     public void setUp() throws Exception {
-        product = new ReceiptProduct(new Product("name", price), count);
+        product = new ReceiptProduct(new Product(id, "name", price), count);
     }
 
     @Test

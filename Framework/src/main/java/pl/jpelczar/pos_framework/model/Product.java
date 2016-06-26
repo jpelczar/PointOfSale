@@ -1,26 +1,25 @@
 package pl.jpelczar.pos_framework.model;
 
-import java.io.Serializable;
-
 /**
  * Created by jpelczar on 25.06.16.
  */
-public class Product implements Serializable{
+public class Product implements IDatabaseModel<Integer> {
 
     private String name;
     private float price;
+    private Integer id; //Product id - for UPC-A it is a leftNumericalDigit
 
     public Product() {
     }
 
-    public Product(String name, float price) {
+    public Product(int id, String name, float price) {
         this.name = name;
         this.price = price;
     }
 
     @Override
     public String toString() {
-        return "Product: " + name + " have price: " + price;
+        return "Product: " + id + " with name: " + name + " have price: " + price;
     }
 
     public String getName() {
@@ -37,5 +36,13 @@ public class Product implements Serializable{
 
     public void setPrice(float price) {
         this.price = price;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
