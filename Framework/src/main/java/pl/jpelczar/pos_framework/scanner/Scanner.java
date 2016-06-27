@@ -1,6 +1,5 @@
 package pl.jpelczar.pos_framework.scanner;
 
-import com.sun.istack.internal.Nullable;
 import pl.jpelczar.pos_framework.database.DatabaseManager;
 import pl.jpelczar.pos_framework.model.Product;
 import pl.jpelczar.pos_framework.model.barcode.Barcode;
@@ -16,7 +15,6 @@ public class Scanner {
 
     List<Product> productList;
 
-    @Nullable
     public Barcode scan() throws Exception {
         productList = DatabaseManager.getRepositoryInstance().getProductDao().getAll();
         Random random = new Random();

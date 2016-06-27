@@ -1,6 +1,5 @@
 package pl.jpelczar.pos_framework.database.dao;
 
-import com.sun.istack.internal.Nullable;
 import pl.jpelczar.pos_framework.model.IDatabaseModel;
 
 import java.util.List;
@@ -16,7 +15,6 @@ public interface IDao<T extends IDatabaseModel, ID> {
 
     void insertOrUpdate(T t);
 
-    @Nullable
     T get(ID id);
 
     List<T> getAll();

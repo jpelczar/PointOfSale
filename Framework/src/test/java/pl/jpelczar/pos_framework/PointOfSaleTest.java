@@ -1,6 +1,5 @@
 package pl.jpelczar.pos_framework;
 
-import com.sun.istack.internal.Nullable;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -139,12 +138,12 @@ public class PointOfSaleTest {
             }
 
             @Override
-            public void onNotFound(Barcode barcode, @Nullable String message) {
+            public void onNotFound(Barcode barcode, String message) {
                 Assert.assertNotNull(message, barcode);
             }
 
             @Override
-            public void invalidBarcode(@Nullable String message) {
+            public void invalidBarcode(String message) {
                 Assert.assertTrue(true);
             }
         });
