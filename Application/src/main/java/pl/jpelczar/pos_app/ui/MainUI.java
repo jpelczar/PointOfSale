@@ -10,7 +10,9 @@ public class MainUI extends JFrame {
 
     public MainUI() throws HeadlessException {
         super("Point of Sale");
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setSize(400, 400);
         setResizable(false);
+
     }
 }

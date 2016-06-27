@@ -1,6 +1,5 @@
 package pl.jpelczar.pos_framework.model;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -8,7 +7,7 @@ import java.util.List;
 /**
  * Created by jpelczar on 25.06.16.
  */
-public class Receipt implements Serializable {
+public class Receipt implements IDatabaseModel<Long> {
 
     private long date;
     private List<ReceiptProduct> productList;
@@ -34,6 +33,11 @@ public class Receipt implements Serializable {
     public void addProduct(ReceiptProduct product) {
         productList.add(product);
         totalPrice += product.getTotalPrice();
+    }
+
+    @Override
+    public Long getId() {
+        return date;
     }
 
     public long getDate() {

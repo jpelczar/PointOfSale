@@ -21,6 +21,11 @@ public class UPC_ATest {
 
     }
 
+    @Test(expected = Exception.class)
+    public void exceptionTest() throws Exception {
+        new UPC_A(12, 45);
+    }
+
     @Test
     public void toStringTest() throws Exception {
         Assert.assertEquals(pattern, barcode.toString());

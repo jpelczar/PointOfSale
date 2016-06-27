@@ -1,13 +1,14 @@
 package pl.jpelczar.pos_framework.database.dao;
 
 import com.sun.istack.internal.Nullable;
+import pl.jpelczar.pos_framework.model.IDatabaseModel;
 
 import java.util.List;
 
 /**
  * Created by jpelczar on 26.06.16.
  */
-public interface IDao<T, ID> {
+public interface IDao<T extends IDatabaseModel, ID> {
 
     void insert(T t);
 
