@@ -7,28 +7,28 @@ import java.io.Serializable;
  */
 public class ReceiptProduct implements Serializable {
     private Product product;
-    private int count;
+    private int quantity;
     private float totalPrice;
 
     public ReceiptProduct() {
     }
 
-    public ReceiptProduct(Product product, int count) {
-        setProduct(product, count);
+    public ReceiptProduct(Product product, int quantity) {
+        setProduct(product, quantity);
     }
 
-    public void setProduct(Product product, int count) {
+    public void setProduct(Product product, int quantity) {
         this.product = product;
-        this.count = count;
-        this.totalPrice = product.getPrice() * count;
+        this.quantity = quantity;
+        this.totalPrice = product.getPrice() * quantity;
     }
 
     public Product getProduct() {
         return product;
     }
 
-    public int getCount() {
-        return count;
+    public int getQuantity() {
+        return quantity;
     }
 
     public float getTotalPrice() {

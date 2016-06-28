@@ -1,6 +1,7 @@
 package pl.jpelczar.pos_app.input;
 
 import pl.jpelczar.pos_app.base.BaseUI;
+import pl.jpelczar.pos_app.output.printer.PrinterUI;
 import pl.jpelczar.pos_framework.model.Product;
 
 import javax.swing.*;
@@ -11,17 +12,19 @@ import static pl.jpelczar.pos_app.utils.Log.echo;
 /**
  * Created by jpelczar on 26.06.16.
  */
-public class InputUi extends BaseUI implements InputMvpView {
+public class InputUI extends BaseUI implements InputMvpView {
 
     InputPresenter presenter;
 
     Button scanButton;
     Button exitButton;
+    PrinterUI printer;
 
-    public InputUi() throws HeadlessException {
+    public InputUI() throws HeadlessException {
         super("Input");
 
         presenter = new InputPresenter(this);
+        printer = new PrinterUI();
 
         initContainer();
 
@@ -45,7 +48,7 @@ public class InputUi extends BaseUI implements InputMvpView {
     private void setListeners() {
         scanButton.addActionListener(e -> presenter.scan());
 
-        exitButton.addActionListener(e -> echo(presenter.closeReceipt().toString()));
+        exitButton.addActionListener(e -> printer.print(presenter.closeReceipt()));
     }
 
     @Override

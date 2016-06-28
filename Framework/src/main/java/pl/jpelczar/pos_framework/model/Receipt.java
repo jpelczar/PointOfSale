@@ -37,23 +37,6 @@ public class Receipt implements IDatabaseModel<Long> {
     }
 
     @Override
-    public String toString() {
-        StringBuilder stringBuilder = new StringBuilder();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(date);
-        stringBuilder.append(dateFormat.format(calendar.getTime())).append("\n");
-        for (ReceiptProduct rp : productList) {
-            stringBuilder.append(rp.getProduct().getName()).append("\t")
-                    .append(rp.getProduct().getPrice()).append("\t")
-                    .append(rp.getCount()).append("\t")
-                    .append(rp.getTotalPrice()).append("\n");
-        }
-        stringBuilder.append(totalPrice);
-        return stringBuilder.toString();
-    }
-
-    @Override
     public Long getId() {
         return date;
     }
