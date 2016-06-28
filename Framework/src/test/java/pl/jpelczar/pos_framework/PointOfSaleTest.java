@@ -134,7 +134,7 @@ public class PointOfSaleTest {
             @Override
             public void onSuccess(Product product, Barcode barcode) {
                 if (barcode instanceof UPC_A)
-                    Assert.assertTrue(product.getId().equals(((UPC_A) barcode).getLeftNumericalDigit())); //according to Product id description
+                    Assert.assertTrue(product.getId().equals(((UPC_A) barcode).getLeftNumericalDigits())); //according to Product id description
             }
 
             @Override

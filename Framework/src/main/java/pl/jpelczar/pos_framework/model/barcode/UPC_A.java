@@ -5,23 +5,23 @@ package pl.jpelczar.pos_framework.model.barcode;
  */
 public class UPC_A implements Barcode {
 
-    private int leftNumericalDigit;
-    private int rightNumericalDigit;
+    private int leftNumericalDigits;
+    private int rightNumericalDigits;
 
     public UPC_A() {
     }
 
     /**
-     * @param leftNumericalDigit  - must be between 100 000 and 999 999
-     * @param rightNumericalDigit - must be between 100 000 and 999 999
+     * @param leftNumericalDigits  - must be between 100 000 and 999 999
+     * @param rightNumericalDigits - must be between 100 000 and 999 999
      * @throws Exception
      */
-    public UPC_A(int leftNumericalDigit, int rightNumericalDigit) throws Exception {
-        if (leftNumericalDigit < 999999 && rightNumericalDigit < 999999 && leftNumericalDigit > 100000 && rightNumericalDigit > 100000) {
-            this.leftNumericalDigit = leftNumericalDigit;
-            this.rightNumericalDigit = rightNumericalDigit;
+    public UPC_A(int leftNumericalDigits, int rightNumericalDigits) throws Exception {
+        if (leftNumericalDigits < 999999 && rightNumericalDigits < 999999 && leftNumericalDigits > 100000 && rightNumericalDigits > 100000) {
+            this.leftNumericalDigits = leftNumericalDigits;
+            this.rightNumericalDigits = rightNumericalDigits;
         } else {
-            throw new Exception("Left and Right numerical digit must be between 100 000 and 999 999");
+            throw new Exception("Left and Right numerical digit must be between 100 000 and 999 999. Current is " + leftNumericalDigits + " and " + rightNumericalDigits);
         }
     }
 
@@ -41,32 +41,32 @@ public class UPC_A implements Barcode {
 
     @Override
     public String toString() {
-        return String.valueOf(leftNumericalDigit) + rightNumericalDigit;
+        return String.valueOf(leftNumericalDigits) + rightNumericalDigits;
     }
 
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof UPC_A) {
             UPC_A eq = (UPC_A) obj;
-            return (eq.getLeftNumericalDigit() == leftNumericalDigit)
-                    && (eq.getRightNumericalDigit() == rightNumericalDigit);
+            return (eq.getLeftNumericalDigits() == leftNumericalDigits)
+                    && (eq.getRightNumericalDigits() == rightNumericalDigits);
         } else
             return false;
     }
 
-    public int getLeftNumericalDigit() {
-        return leftNumericalDigit;
+    public int getLeftNumericalDigits() {
+        return leftNumericalDigits;
     }
 
-    public void setLeftNumericalDigit(int leftNumericalDigit) {
-        this.leftNumericalDigit = leftNumericalDigit;
+    public void setLeftNumericalDigits(int leftNumericalDigits) {
+        this.leftNumericalDigits = leftNumericalDigits;
     }
 
-    public int getRightNumericalDigit() {
-        return rightNumericalDigit;
+    public int getRightNumericalDigits() {
+        return rightNumericalDigits;
     }
 
-    public void setRightNumericalDigit(int rightNumericalDigit) {
-        this.rightNumericalDigit = rightNumericalDigit;
+    public void setRightNumericalDigits(int rightNumericalDigits) {
+        this.rightNumericalDigits = rightNumericalDigits;
     }
 }

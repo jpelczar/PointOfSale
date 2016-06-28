@@ -1,5 +1,6 @@
 package pl.jpelczar.pos_framework.model;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -33,6 +34,23 @@ public class Receipt implements IDatabaseModel<Long> {
     public void addProduct(ReceiptProduct product) {
         productList.add(product);
         totalPrice += product.getTotalPrice();
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(date);
+        stringBuilder.append(dateFormat.format(calendar.getTime())).append("\n");
+        for (ReceiptProduct rp : productList) {
+            stringBuilder.append(rp.getProduct().getName()).append("\t")
+                    .append(rp.getProduct().getPrice()).append("\t")
+                    .append(rp.getCount()).append("\t")
+                    .append(rp.getTotalPrice()).append("\n");
+        }
+        stringBuilder.append(totalPrice);
+        return stringBuilder.toString();
     }
 
     @Override

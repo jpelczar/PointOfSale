@@ -35,7 +35,7 @@ public class PointOfSale implements PointOfSaleAPI {
                 callback.invalidBarcode("Invalid barcode");
             } else {
                 if (barcode instanceof UPC_A) {
-                    Product product = database.getProductDao().get(((UPC_A) barcode).getLeftNumericalDigit()); //according to Product id description
+                    Product product = database.getProductDao().get(((UPC_A) barcode).getLeftNumericalDigits()); //according to Product id description
                     if (product != null) {
                         receipt.addProduct(new ReceiptProduct(product, 1));
                         callback.onSuccess(product, barcode);
