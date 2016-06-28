@@ -1,7 +1,7 @@
 package pl.jpelczar.pos_app;
 
 import pl.jpelczar.pos_app.config.Config;
-import pl.jpelczar.pos_app.ui.InputUi;
+import pl.jpelczar.pos_app.input.InputUi;
 
 /**
  * Created by jpelczar on 25.06.16.
