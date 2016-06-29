@@ -18,7 +18,7 @@ public class PrinterUI extends BaseUI implements PrinterMvpView {
         super("Printer");
         presenter = new PrinterPresenter(this);
 
-        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         setSize(400, 300);
         setResizable(false);
         setLayout(new GridLayout(1, 1));
@@ -27,7 +27,6 @@ public class PrinterUI extends BaseUI implements PrinterMvpView {
         receiptTextPrint.setEditable(false);
 
         add(receiptTextPrint);
-        setVisible(true);
     }
 
     public void print(Receipt receipt) {

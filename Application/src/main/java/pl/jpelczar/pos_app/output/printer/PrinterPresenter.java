@@ -36,7 +36,7 @@ public class PrinterPresenter extends Presenter<PrinterMvpView> {
                     .append(rp.getQuantity()).append("\t")
                     .append(rp.getTotalPrice()).append("\n");
         }
-        stringBuilder.append("Total price: ").append(receipt.getTotalPrice());
+        stringBuilder.append("Total price: ").append(String.format("%10.2f",receipt.getTotalPrice()));
         return stringBuilder.toString();
     }
 }
