@@ -20,7 +20,7 @@ public class Product implements IDatabaseModel<Integer> {
 
     @Override
     public String toString() {
-        return "Product: " + id + " with name: " + name + " have price: " + price;
+        return "Product: " + name + " have price: " + price;
     }
 
     public String getName() {

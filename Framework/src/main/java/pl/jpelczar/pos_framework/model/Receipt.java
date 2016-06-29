@@ -1,6 +1,5 @@
 package pl.jpelczar.pos_framework.model;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
