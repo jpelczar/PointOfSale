@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="pointofsale" default="all">
+
+    <!-- Uncomment the following property if no tests compilation is needed -->
+    <!--
+    <property name="skip.tests" value="true"/>
+     -->
+
+    <!-- Compiler options -->
+
+    <property name="compiler.debug" value="on"/>
+    <property name="compiler.generate.no.warnings" value="off"/>
+    <property name="compiler.args" value=""/>
+    <property name="compiler.max.memory" value="700m"/>
+    <patternset id="ignored.files">
+        <exclude name="**/*.hprof/**"/>
+        <exclude name="**/*.pyc/**"/>
+        <exclude name="**/*.pyo/**"/>
+        <exclude name="**/*.rbc/**"/>
+        <exclude name="**/*.yarb/**"/>
+        <exclude name="**/*~/**"/>
+        <exclude name="**/.DS_Store/**"/>
+        <exclude name="**/.git/**"/>
+        <exclude name="**/.hg/**"/>
+        <exclude name="**/.svn/**"/>
+        <exclude name="**/CVS/**"/>
+        <exclude name="**/RCS/**"/>
+        <exclude name="**/SCCS/**"/>
+        <exclude name="**/__pycache__/**"/>
+        <exclude name="**/_svn/**"/>
+        <exclude name="**/rcs/**"/>
+        <exclude name="**/vssver.scc/**"/>
+        <exclude name="**/vssver2.scc/**"/>
+    </patternset>
+    <patternset id="library.patterns">
+        <include name="*.egg"/>
+        <include name="*.jar"/>
+        <include name="*.ear"/>
+        <include name="*.ane"/>
+        <include name="*.apk"/>
+        <include name="*.swc"/>
+        <include name="*.war"/>
+        <include name="*.zip"/>
+    </patternset>
+    <patternset id="compiler.resources">
+        <exclude name="**/?*.java"/>
+        <exclude name="**/?*.form"/>
+        <exclude name="**/?*.class"/>
+        <exclude name="**/?*.groovy"/>
+        <exclude name="**/?*.scala"/>
+        <exclude name="**/?*.flex"/>
+        <exclude name="**/?*.kt"/>
+        <exclude name="**/?*.clj"/>
+        <exclude name="**/?*.aj"/>
+    </patternset>
+
+
+    <!-- Project Libraries -->
+
+    <path id="library.lib.classpath">
+        <pathelement location="${basedir}/Framework/src/test/lib/hamcrest-core-1.3.jar"/>
+        <pathelement location="${basedir}/Framework/src/test/lib/junit-4.12.jar"/>
+    </path>
+
+
+    <!-- Application Server Libraries -->
+
+    <!-- Modules -->
+
+
+    <!-- Module Framework -->
+
+    <dirname property="module.framework.basedir" file="${ant.file}"/>
+    <dirname property="basedir" file="${ant.file}"/>
+
+
+    <property name="compiler.args.framework" value="-encoding UTF-8 -source 8 -target 8 ${compiler.args}"/>
+
+    <property name="framework.output.dir" value="${module.framework.basedir}/out/production/Framework"/>
+    <property name="framework.testoutput.dir" value="${module.framework.basedir}/out/test/Framework"/>
+
+    <path id="framework.module.bootclasspath">
+        <!-- Paths to be included in compilation bootclasspath -->
+    </path>
+
+    <path id="framework.module.production.classpath"/>
+
+    <path id="framework.runtime.production.module.classpath">
+        <pathelement location="${framework.output.dir}"/>
+    </path>
+
+    <path id="framework.module.classpath">
+        <pathelement location="${framework.output.dir}"/>
+    </path>
+
+    <path id="framework.runtime.module.classpath">
+        <pathelement location="${framework.testoutput.dir}"/>
+        <pathelement location="${framework.output.dir}"/>
+    </path>
+
+
+    <patternset id="excluded.from.module.framework">
+        <patternset refid="ignored.files"/>
+    </patternset>
+
+    <patternset id="excluded.from.compilation.framework">
+        <patternset refid="excluded.from.module.framework"/>
+    </patternset>
+
+    <path id="framework.module.sourcepath">
+        <dirset dir="${module.framework.basedir}/Framework/src/main">
+            <include name="java"/>
+        </dirset>
+    </path>
+
+
+    <target name="compile.module.framework" depends="compile.module.framework.production,compile.module.framework.tests"
+            description="Compile module Framework"/>
+
+    <target name="compile.module.framework.production" description="Compile module Framework; production classes">
+        <mkdir dir="${framework.output.dir}"/>
+        <javac destdir="${framework.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}"
+               memorymaximumsize="${compiler.max.memory}" fork="true">
+            <compilerarg line="${compiler.args.framework}"/>
+            <bootclasspath refid="framework.module.bootclasspath"/>
+            <classpath refid="framework.module.production.classpath"/>
+            <src refid="framework.module.sourcepath"/>
+            <patternset refid="excluded.from.compilation.framework"/>
+        </javac>
+
+        <copy todir="${framework.output.dir}">
+            <fileset dir="${module.framework.basedir}/Framework/src/main/java">
+                <patternset refid="compiler.resources"/>
+                <type type="file"/>
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="compile.module.framework.tests" depends="compile.module.framework.production"
+            description="compile module Framework; test classes" unless="skip.tests"/>
+
+    <target name="clean.module.framework" description="cleanup module">
+        <delete dir="${framework.output.dir}"/>
+        <delete dir="${framework.testoutput.dir}"/>
+    </target>
+
+
+    <!-- Module test -->
+
+    <dirname property="module.test.basedir" file="${ant.file}"/>
+
+
+    <property name="compiler.args.test" value="-encoding UTF-8 -source 8 -target 8 ${compiler.args}"/>
+
+    <property name="test.output.dir" value="${module.test.basedir}/out/production/test"/>
+    <property name="test.testoutput.dir" value="${module.test.basedir}/out/test/test"/>
+
+    <path id="test.module.bootclasspath">
+        <!-- Paths to be included in compilation bootclasspath -->
+    </path>
+
+    <path id="test.module.production.classpath">
+        <path refid="library.lib.classpath"/>
+        <pathelement location="${framework.output.dir}"/>
+    </path>
+
+    <path id="test.runtime.production.module.classpath">
+        <pathelement location="${test.output.dir}"/>
+        <path refid="library.lib.classpath"/>
+        <pathelement location="${framework.output.dir}"/>
+    </path>
+
+    <path id="test.module.classpath">
+        <pathelement location="${test.output.dir}"/>
+        <path refid="library.lib.classpath"/>
+        <pathelement location="${framework.testoutput.dir}"/>
+        <pathelement location="${framework.output.dir}"/>
+    </path>
+
+    <path id="test.runtime.module.classpath">
+        <pathelement location="${test.testoutput.dir}"/>
+        <pathelement location="${test.output.dir}"/>
+        <path refid="library.lib.classpath"/>
+        <pathelement location="${framework.testoutput.dir}"/>
+        <pathelement location="${framework.output.dir}"/>
+    </path>
+
+
+    <patternset id="excluded.from.module.test">
+        <patternset refid="ignored.files"/>
+    </patternset>
+
+    <patternset id="excluded.from.compilation.test">
+        <patternset refid="excluded.from.module.test"/>
+    </patternset>
+
+    <path id="test.module.test.sourcepath">
+        <dirset dir="${module.test.basedir}/Framework/src/test">
+            <include name="java"/>
+        </dirset>
+    </path>
+
+
+    <target name="compile.module.test" depends="compile.module.test.production,compile.module.test.tests"
+            description="Compile module test"/>
+
+    <target name="compile.module.test.production" depends="compile.module.framework"
+            description="Compile module test; production classes"/>
+
+    <target name="compile.module.test.tests" depends="compile.module.test.production"
+            description="compile module test; test classes" unless="skip.tests">
+        <mkdir dir="${test.testoutput.dir}"/>
+        <javac destdir="${test.testoutput.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}"
+               memorymaximumsize="${compiler.max.memory}" fork="true">
+            <compilerarg line="${compiler.args.test}"/>
+            <bootclasspath refid="test.module.bootclasspath"/>
+            <classpath refid="test.module.classpath"/>
+            <src refid="test.module.test.sourcepath"/>
+            <patternset refid="excluded.from.compilation.test"/>
+        </javac>
+
+        <copy todir="${test.testoutput.dir}">
+            <fileset dir="${module.test.basedir}/Framework/src/test/java">
+                <patternset refid="compiler.resources"/>
+                <type type="file"/>
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="clean.module.test" description="cleanup module">
+        <delete dir="${test.output.dir}"/>
+        <delete dir="${test.testoutput.dir}"/>
+    </target>
+
+
+    <!-- Module Application -->
+
+    <dirname property="module.application.basedir" file="${ant.file}"/>
+
+
+    <property name="compiler.args.application" value="-encoding UTF-8 -source 8 -target 8 ${compiler.args}"/>
+
+    <property name="application.output.dir" value="${module.application.basedir}/out/production/Application"/>
+    <property name="application.testoutput.dir" value="${module.application.basedir}/out/test/Application"/>
+
+    <path id="application.module.bootclasspath">
+        <!-- Paths to be included in compilation bootclasspath -->
+    </path>
+
+    <path id="application.module.production.classpath">
+        <pathelement location="${test.output.dir}"/>
+        <pathelement location="${framework.output.dir}"/>
+    </path>
+
+    <path id="application.runtime.production.module.classpath">
+        <pathelement location="${application.output.dir}"/>
+        <pathelement location="${test.output.dir}"/>
+        <path refid="library.lib.classpath"/>
+        <pathelement location="${framework.output.dir}"/>
+    </path>
+
+    <path id="application.module.classpath">
+        <pathelement location="${application.output.dir}"/>
+        <pathelement location="${test.testoutput.dir}"/>
+        <pathelement location="${test.output.dir}"/>
+        <pathelement location="${framework.testoutput.dir}"/>
+        <pathelement location="${framework.output.dir}"/>
+    </path>
+
+    <path id="application.runtime.module.classpath">
+        <pathelement location="${application.testoutput.dir}"/>
+        <pathelement location="${application.output.dir}"/>
+        <pathelement location="${test.testoutput.dir}"/>
+        <pathelement location="${test.output.dir}"/>
+        <path refid="library.lib.classpath"/>
+        <pathelement location="${framework.testoutput.dir}"/>
+        <pathelement location="${framework.output.dir}"/>
+    </path>
+
+
+    <patternset id="excluded.from.module.application">
+        <patternset refid="ignored.files"/>
+    </patternset>
+
+    <patternset id="excluded.from.compilation.application">
+        <patternset refid="excluded.from.module.application"/>
+    </patternset>
+
+    <path id="application.module.sourcepath">
+        <dirset dir="${module.application.basedir}/Application/src/main">
+            <include name="java"/>
+        </dirset>
+    </path>
+
+
+    <target name="compile.module.application"
+            depends="compile.module.application.production,compile.module.application.tests"
+            description="Compile module Application"/>
+
+    <target name="compile.module.application.production" depends="compile.module.test,compile.module.framework"
+            description="Compile module Application; production classes">
+        <mkdir dir="${application.output.dir}"/>
+        <javac destdir="${application.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}"
+               memorymaximumsize="${compiler.max.memory}" fork="true">
+            <compilerarg line="${compiler.args.application}"/>
+            <bootclasspath refid="application.module.bootclasspath"/>
+            <classpath refid="application.module.production.classpath"/>
+            <src refid="application.module.sourcepath"/>
+            <patternset refid="excluded.from.compilation.application"/>
+        </javac>
+
+        <copy todir="${application.output.dir}">
+            <fileset dir="${module.application.basedir}/Application/src/main/java">
+                <patternset refid="compiler.resources"/>
+                <type type="file"/>
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="compile.module.application.tests" depends="compile.module.application.production"
+            description="compile module Application; test classes" unless="skip.tests"/>
+
+    <target name="clean.module.application" description="cleanup module">
+        <delete dir="${application.output.dir}"/>
+        <delete dir="${application.testoutput.dir}"/>
+    </target>
+
+    <target name="init" description="Build initialization">
+        <!-- Perform any build initialization in this target -->
+    </target>
+
+    <target name="clean" depends="clean.module.framework, clean.module.test, clean.module.application"
+            description="cleanup all"/>
+
+    <target name="jar.module.application">
+        <jar basedir="${basedir}/out/production/Application"
+             jarfile="./PointOfSaleApplication.jar">
+            <fileset dir="${basedir}/out/production/Framework/" includes="**/*.class"/>
+            <manifest>
+                <attribute name="Class-Path" value="junit-4.12.jar hamcrest-core-1.3.jar"/>
+                <attribute name="Main-Class" value="pl.jpelczar.pos_app.Main"/>
+            </manifest>
+        </jar>
+    </target>
+
+    <target name="build.modules"
+            depends="init, clean, compile.module.framework, compile.module.test, compile.module.application, jar.module.application"
+            description="build all modules"/>
+
+    <target name="all" depends="build.modules" description="build all"/>
+</project>
